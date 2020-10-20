@@ -16,7 +16,7 @@ source:
 
 build:
   merge_build_host: true  # [win]
-  number: 1005
+  number: 1006
   skip: true  # [win32]
 
   rpaths:
