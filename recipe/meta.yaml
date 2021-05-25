@@ -1,4 +1,4 @@
-{% set version = "0.7-6" %}
+{% set version = "0.7-7" %}
 
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
@@ -12,11 +12,11 @@ source:
   url:
     - https://cran.r-project.org/src/contrib/signal_{{ version }}.tar.gz
     - https://cran.r-project.org/src/contrib/Archive/signal/signal_{{ version }}.tar.gz
-  sha256: 6b60277b07cf0167f8272059b128cc82f27a9bab1fd33d74c2a9e1f2abca5def
+  sha256: 67a015c46d67de7548c3adb83a1b22524de75501a861d91668c3c2ea761a4e61
 
 build:
   merge_build_host: true  # [win]
-  number: 1006
+  number: 0
   skip: true  # [win32]
 
   rpaths:
