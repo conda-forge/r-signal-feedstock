@@ -1,4 +1,4 @@
-{% set version = "1.8-0" %}
+{% set version = "1.8-1" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,7 +10,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/signal_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/signal/signal_{{ version }}.tar.gz
-  sha256: 89cba854167a2b051a58cf3b73ccbf74eeb47c890ac39720611cd41f86b94684
+  sha256: a322bc13c2d3ff43a7f24970e52277d3d8ebc47fdaa9f63e210ed53655e1eeb0
 
 build:
   merge_build_host: true  # [win]
@@ -22,7 +22,9 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}              # [not win]
+    - {{ stdlib("c") }}                # [not win]
     - {{ compiler('m2w64_c') }}        # [win]
+    - {{ stdlib("m2w64_c") }}          # [win]
     - {{ compiler('fortran') }}        # [not win]
     - {{ compiler('m2w64_fortran') }}  # [win]
     - {{ posix }}filesystem        # [win]
