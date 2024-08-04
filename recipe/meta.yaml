@@ -1,4 +1,4 @@
-{% set version = "1.8-0" %}
+{% set version = "1.8-1" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,7 +10,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/signal_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/signal/signal_{{ version }}.tar.gz
-  sha256: 89cba854167a2b051a58cf3b73ccbf74eeb47c890ac39720611cd41f86b94684
+  sha256: a322bc13c2d3ff43a7f24970e52277d3d8ebc47fdaa9f63e210ed53655e1eeb0
 
 build:
   merge_build_host: true  # [win]
@@ -21,22 +21,25 @@ build:
 
 requirements:
   build:
+    - cross-r-base {{ r_base }}        # [build_platform != target_platform]
+    - r-mass                           # [build_platform != target_platform]
     - {{ compiler('c') }}              # [not win]
+    - {{ stdlib("c") }}                # [not win]
     - {{ compiler('m2w64_c') }}        # [win]
+    - {{ stdlib("m2w64_c") }}          # [win]
     - {{ compiler('fortran') }}        # [not win]
     - {{ compiler('m2w64_fortran') }}  # [win]
-    - {{ posix }}filesystem        # [win]
+    - {{ posix }}filesystem            # [win]
     - {{ posix }}make
-    - {{ posix }}sed               # [win]
-    - {{ posix }}coreutils         # [win]
-    - {{ posix }}zip               # [win]
-    - cross-r-base {{ r_base }}    # [build_platform != target_platform]
+    - {{ posix }}sed                   # [win]
+    - {{ posix }}coreutils             # [win]
+    - {{ posix }}zip                   # [win]
   host:
     - r-base
     - r-mass
   run:
     - r-base
-    - {{ native }}gcc-libs         # [win]
+    - {{ native }}gcc-libs             # [win]
     - r-mass
 
 test:
@@ -46,30 +49,13 @@ test:
 
 about:
   home: https://CRAN.R-project.org/package=signal
+  dev_url: https://r-forge.r-project.org/projects/signal/
   license: GPL-2.0-only
   summary: A set of signal processing functions originally written for 'Matlab' and 'Octave'. Includes filter generation utilities, filtering functions, resampling routines, and visualization of filter models. It also includes interpolation functions.
   license_family: GPL2
   license_file:
-    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
 
 extra:
   recipe-maintainers:
     - conda-forge/r
-
-# Package: signal
-# Title: Signal Processing
-# Version: 0.7-7
-# Date: 2021-05-24
-# Authors@R: c(person("Uwe", "Ligges", role = c("aut", "cre"), email="ligges@statistik.tu-dortmund.de", comment = "new maintainer"), person("Tom", "Short", role = "aut", email = "tshort@eprisolutions.com", comment="port to R"), person("Paul", "Kienzle", role = "aut", comment="majority of the original sources"), person("Sarah", "Schnackenberg", role = "ctb", comment="various test cases and bug fixes"), person("David", "Billinghurst", role = "ctb"), person("Hans-Werner", "Borchers", role = "ctb"), person("Andre", "Carezia", role = "ctb"), person("Pascal", "Dupuis", role = "ctb"), person("John W.", "Eaton", role = "ctb"), person("E.", "Farhi", role = "ctb"), person("Kai", "Habel", role = "ctb"), person("Kurt", "Hornik", role = "ctb"), person("Sebastian", "Krey", role = "ctb"), person("Bill", "Lash", role = "ctb"), person("Friedrich", "Leisch", role = "ctb"), person("Olaf", "Mersmann", role = "ctb"), person("Paulo", "Neis", role = "ctb"), person("Jaakko", "Ruohio", role = "ctb"), person("Julius O.", "Smith III", role = "ctb"), person("Doug", "Stewart", role = "ctb"), person("Andreas", "Weingessel", role = "ctb"))
-# Depends: R (>= 3.5.0)
-# Imports: MASS, graphics, grDevices, stats, utils
-# Suggests: pracma
-# Enhances: matlab
-# Description: A set of signal processing functions originally written for 'Matlab' and 'Octave'. Includes filter generation utilities, filtering functions, resampling routines, and visualization of filter models. It also includes interpolation functions.
-# License: GPL-2
-# NeedsCompilation: yes
-# Packaged: 2021-05-24 23:53:43 UTC; ligges
-# Author: Uwe Ligges [aut, cre] (new maintainer), Tom Short [aut] (port to R), Paul Kienzle [aut] (majority of the original sources), Sarah Schnackenberg [ctb] (various test cases and bug fixes), David Billinghurst [ctb], Hans-Werner Borchers [ctb], Andre Carezia [ctb], Pascal Dupuis [ctb], John W. Eaton [ctb], E. Farhi [ctb], Kai Habel [ctb], Kurt Hornik [ctb], Sebastian Krey [ctb], Bill Lash [ctb], Friedrich Leisch [ctb], Olaf Mersmann [ctb], Paulo Neis [ctb], Jaakko Ruohio [ctb], Julius O. Smith III [ctb], Doug Stewart [ctb], Andreas Weingessel [ctb]
-# Maintainer: Uwe Ligges <ligges@statistik.tu-dortmund.de>
-# Repository: CRAN
-# Date/Publication: 2021-05-25 04:40:02 UTC
